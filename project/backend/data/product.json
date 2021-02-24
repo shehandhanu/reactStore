@@ -1,0 +1,28 @@
+[
+    {
+        "name": "rose",
+        "price": "$45",
+        "rating":4.5,
+        "image": [
+            {
+                "public_id": "stringID",
+                "url":"stringURL"
+            }
+        ],
+        "category":"flower",
+        "seller":"shehan",
+        "stocks": "available",
+        "numOfReviews": 5,
+        "reviews": [
+            {
+                "name":"kumara",
+    
+                "rating": 4,
+            
+                "comment":  "good"
+    
+            }
+        ],
+        "createdAt": null
+    }
+]
