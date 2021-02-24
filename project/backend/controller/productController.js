@@ -5,7 +5,6 @@ const Product = require('../models/product');
 exports.newProducts = async (req, res, next) => {
 
     const product = await Product.create(req.body);
-    console.log(product);
 
     res.status(201).json({
         success: true,
