@@ -1,6 +1,9 @@
 const Product = require('../models/product');
 const ErrorHandler = require('../utils/errorHandler');
 
+const APIFeatures = require('../utils/apiFeatures');
+const { db } = require('../models/product');
+
 //Create New Product
 
 exports.newProducts = async (req, res, next) => {
@@ -15,13 +18,23 @@ exports.newProducts = async (req, res, next) => {
 }
 
 
-//get al products  =>/api/v1/products
+//get all products  =>/api/v1/products?keyword=rose
 exports.getProducts = async (req, res, next) => {
 
-    const products = await Product.find();
+    const resPerPage = 3;
+    const productCount = await Product.countDocuments();
+
+    const apiFeatures = new APIFeatures(Product.find(), req.query)
+        .search()
+        .filter()
+        .pagination(resPerPage);
+
+    const products = await apiFeatures.query;
+
     res.status(200).json({
         success: true,
         count: products.length,
+        productCount,
         products
     })
 }

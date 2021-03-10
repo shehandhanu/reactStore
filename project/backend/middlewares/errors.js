@@ -18,6 +18,12 @@ module.exports = (err, req, res, next) => {
         let error = { ...err };
         error.message = err.message;
 
+        //Wrong id object 
+        // if (err.name == 'CastError') {
+        //     const message = `Resourse not found invalid : ${err.path}`;
+        //     error = new ErrorHandler(message, 400);
+        // }
+
         res.status(err.statusCode).json({
             success: false,
             message: error.message || 'Internal Server Error',

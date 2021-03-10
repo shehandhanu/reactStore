@@ -11,6 +11,8 @@ const products = require('./routes/product');
 
 app.use('/api/v1', products);
 
+// Middele ware to handle errors
+
 app.use(errorMiddleware)
 
 module.exports = app;

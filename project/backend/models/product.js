@@ -6,8 +6,8 @@ const productSchema = new mongoose.Schema({
         require: [true, 'Please Enter Name']
     },
     price: {
-        type: 'string',
-        default: 0.0
+        type: Number,
+        default: 0
     },
     rating: {
         type: 'number',
