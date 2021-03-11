@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
 
@@ -68,6 +69,28 @@ userSchema.methods.getJwtToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_TIME
     });
+}
+
+//get passsword reser token
+userSchema.methods.getResetPasswordToken = function () {
+
+    //genarate token
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    console.log(resetToken);
+
+    //has nad set reset passsword token
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    console.log(this.resetPasswordToken);
+
+    //set token expire timestamp
+    this.resetPasswordExpire = Date.now() + 30 * 60 * 1000;
+
+    // console.log(this.resetToken);
+
+    return this.resetPasswordToken;
+
 }
 
 module.exports = mongoose.model('User', userSchema)
