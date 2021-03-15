@@ -82,8 +82,6 @@ userSchema.methods.getResetPasswordToken = function () {
     //has nad set reset passsword token
     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 
-    console.log(this.resetPasswordToken);
-
     //set token expire timestamp
     this.resetPasswordExpire = Date.now() + 30 * 60 * 1000;
 

@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema({
         type: 'string',
     },
     stocks: {
-        type: 'string',
+        type: Number,
     },
     numOfReviews: {
         type: 'number',
@@ -52,7 +52,7 @@ const productSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        required: true
+        // required: true
     },
     createdAt: {
         type: Date,

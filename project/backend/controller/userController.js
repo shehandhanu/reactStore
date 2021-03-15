@@ -4,6 +4,7 @@ const ErrorHandler = require('../utils/errorHandler');
 const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
+const { send } = require('process');
 
 //Register User   => /api/v1/register
 exports.registerUser = async (req, res, next) => {
@@ -92,6 +93,63 @@ exports.resetPassword = async (req, res, next) => {
 
 }
 
+//change password => apiv1/password/update      
+
+exports.updatePassword = async (req, res, next) => {
+
+    const user = await User.findById(req.user._id).select('+password');
+
+    //check previes user password  
+    const isMatch = await user.comparePassword(req.body.oldPassword);
+    if (!isMatch) {
+        return next(new ErrorHandler('Old password is incorrect', 400))
+    }
+
+    user.password = req.body.password;
+    await user.save();
+
+    sendToken(user, 200, res);
+
+}
+
+//update user profile   => api/v1/user/update
+exports.updateProfile = async (req, res, next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email
+    }
+
+    //update avater TODO
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+
+}
+
+//get current user  => /api/v1/user
+
+exports.getUserProfile = async (req, res, next) => {
+
+    const user = await User.findById(req.user._id)
+
+    if (!user) {
+        return next(new ErrorHandler(`User Cann't find ${req.params.id}`))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+}
 
 //Forgot Password => api/v1/password/forgot password
 exports.forgotPassword = async (req, res, next) => {
@@ -150,5 +208,71 @@ exports.logout = async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: 'logged out'
+    })
+}
+
+//Admin routeer
+//////////////////////////////////////////////////////
+
+//get all users   => /api/v1/admin/users  
+exports.allUsers = async (req, res, next) => {
+    const users = await User.find();
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+}
+
+//get specific user detail => /api/v1/admin/user 
+exports.getUserByAdmin = async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return next(new ErrorHandler(`User Can Not Find id : ${req.params.id}`))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+}
+
+//update user profile by admin   => api/v1/admin/user/update/id
+exports.updateProfileBtAdmin = async (req, res, next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+
+}
+
+exports.deleteUserByAdmin = async (req, res, next) => {
+
+    const user = await User.findById(req.params.id)
+
+    if (!user) {
+        return next(new ErrorHandler(`User Cann't find ${req.params.id}`))
+    }
+
+    // delete avater TODO
+
+    await user.remove();
+
+    res.status(200).json({
+        success: true,
+        user
     })
 }
