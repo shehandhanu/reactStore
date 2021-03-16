@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "react": "^17.0.1",
     "react-alert": "^7.0.2",
+    "react-alert-template-basic": "^1.0.0",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
@@ -43,5 +44,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://127.0.0.1:4000/"
 }

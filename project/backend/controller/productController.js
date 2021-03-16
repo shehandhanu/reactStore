@@ -23,8 +23,10 @@ exports.newProducts = async (req, res, next) => {
 //get all products  =>/api/v1/products?keyword=rose
 exports.getProducts = async (req, res, next) => {
 
+    // return next(new ErrorHandler('My Error', 400));
+
     const resPerPage = 3;
-    const productCount = await Product.countDocuments();
+    const productsCount = await Product.countDocuments();
 
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()
@@ -36,7 +38,7 @@ exports.getProducts = async (req, res, next) => {
     res.status(200).json({
         success: true,
         count: products.length,
-        productCount,
+        productsCount,
         products
     })
 }
@@ -44,6 +46,8 @@ exports.getProducts = async (req, res, next) => {
 //get single product =>/api/v1/product/:id
 
 exports.getSingleProduct = async (req, res, next) => {
+
+    console.log('called');
 
     const product = await Product.findById(req.params.id);
 
