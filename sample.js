@@ -1,4 +1,4 @@
 //imm using it for sampleing branch
-const addsomedaa = () => {
+// const addsomedaa = (new) => {
     // it ios ok
-}
+// }
