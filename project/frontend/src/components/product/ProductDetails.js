@@ -42,8 +42,7 @@ const ProductDetails = ({ match }) => {
                                         <figure className="view overlay rounded z-depth-1 main-img">
                                             <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
                                                 data-size="710x823">
-                                                <img alt="ima" src={product.product.image[0].url}
-                                                    className="img-fluid z-depth-1" />
+                                                <img alt="ima" src={product.product.image[0].url} className="img-fluid z-depth-1" />
                                             </a>
                                         </figure>
                                         <figure className="view overlay rounded z-depth-1 productDetailsimg ">
@@ -107,8 +106,8 @@ const ProductDetails = ({ match }) => {
                         </div>
                         <div className="col-md-6">
 
-                            <h5>{product.product.name}</h5>
-                            <p className="mb-2  text-muted text-uppercase small">{product.product.category}</p>
+                            {/* <h5>{product.product.name}</h5> */}
+                            {/* <p className="mb-2  text-muted text-uppercase small">{product.product.category}</p> */}
                             <ul className="rating list-inline ">
                                 <li className="list-inline-item">
                                     <i className="fas fa-star fa-sm text-primary"></i>
@@ -126,10 +125,10 @@ const ProductDetails = ({ match }) => {
                                     <i className="fas fa-star fa-sm text-primary"></i>
                                 </li>
                                 <li className="list-inline-item">
-                                    <i className="badge badge-primary">{product.product.rating}</i>
+                                    {/* <i className="badge badge-primary">{product.product.rating}</i> */}
                                 </li>
                             </ul>
-                            <p><span className="mr-1"><strong>${product.product.price}</strong></span></p>
+                            {/* <p><span className="mr-1"><strong>${product.product.price}</strong></span></p> */}
                             <p className="pt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit
                             error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam. Distinctio,
                 officia quis dolore quos sapiente tempore alias.</p>
@@ -138,11 +137,11 @@ const ProductDetails = ({ match }) => {
                                     <tbody>
                                         <tr>
                                             <th className="pl-0 w-25" scope="row"><strong>Stocks</strong></th>
-                                            <td>{product.product.stocks}</td>
+                                            {/* <td>{product.product.stocks}</td> */}
                                         </tr>
                                         <tr>
                                             <th className="pl-0 w-25" scope="row"><strong>Seller</strong></th>
-                                            <td>{product.product.seller}</td>
+                                            {/* <td>{product.product.seller}</td> */}
                                         </tr>
                                     </tbody>
                                 </table>
